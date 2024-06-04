@@ -1,0 +1,350 @@
+openapi: 3.0.3
+info:
+  title: CHALLENGE 6 - OpenAPI Documentation
+  version: 1.0.0
+  description: >
+    <h2>Synrgy7 Challenge 6 OpenAPI- Daniel Hasiando Sinaga - FSW1</h2>
+    <br>Superadmin: {email: superadmin@mail.com, password: password}
+    <br>Admin: {email: admin@mail.com, password: password}
+    <br>user: {email: user@mail.com, password: password}<hr/>
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Cars
+  - name: Users
+  - name: Log
+paths:
+  /api/cars/:
+    get:
+      tags:
+        - Cars
+      summary: Get Cars
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Cars
+      summary: Add Car (With Upload)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  example: New Model
+                manufacture:
+                  type: string
+                  example: New Manufacture
+                plate:
+                  type: string
+                  example: New Plate
+                price:
+                  type: integer
+                  example: '888'
+                category:
+                  type: string
+                  example: New Category
+                image:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '308'
+            ETag:
+              schema:
+                type: string
+                example: W/"134-vtdKAv7AJtHWdmECmhnqwJNb18k"
+            Date:
+              schema:
+                type: string
+                example: Sat, 18 May 2024 13:44:38 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: Success
+                message: Data sucesfully added
+                data:
+                  model: New Model
+                  manufacture: New Manufacture
+                  plate: New Plate
+                  image_url: /uploads/vbX_VMqJ5tiPijB8.jpg
+                  price: '888'
+                  category: New Category
+                  created_at: '2024-05-18T13:44:38.307Z'
+                  updated_at: '2024-05-18T13:44:38.307Z'
+                  id: 102
+  /api/cars/1:
+    put:
+      tags:
+        - Cars
+      summary: Edit Car By Id (With Upload)
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  example: Edit Model
+                manufacture:
+                  type: string
+                  example: Edit Manufacture
+                plate:
+                  type: string
+                  example: Edit Plate
+                price:
+                  type: integer
+                  example: '69'
+                category:
+                  type: string
+                  example: Edit Category
+                image:
+                  type: string
+                  format: binary
+                id:
+                  type: integer
+                  example: '1'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '311'
+            ETag:
+              schema:
+                type: string
+                example: W/"137-DSl6Zbz3Cs4WJNa33VHNj9dogIw"
+            Date:
+              schema:
+                type: string
+                example: Sat, 18 May 2024 13:45:46 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: Success
+                message: Data sucesfully updated
+                data:
+                  - id: 1
+                    model: Edit Model
+                    manufacture: Edit Manufacture
+                    plate: Edit Plate
+                    image_url: /uploads/dfW25BV69SHl_qE3.jpg
+                    price: 69
+                    category: Edit Category
+                    created_at: '2024-05-18T13:17:59.835Z'
+                    updated_at: '2024-05-18T13:45:46.453Z'
+    delete:
+      tags:
+        - Cars
+      summary: Delete Car By Id
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '56'
+            ETag:
+              schema:
+                type: string
+                example: W/"38-Xv4o4XPmL6Ozwca9Lz54Zd/ffdM"
+            Date:
+              schema:
+                type: string
+                example: Sat, 18 May 2024 13:46:13 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: Success
+                message: Data sucesfully deleted
+  /api/cars/available:
+    get:
+      tags:
+        - Cars
+      summary: Get Available Cars
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/register:
+    post:
+      tags:
+        - Users
+      summary: Register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: New User 1
+                password: password
+                email: newuser1@mail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/register/admin:
+    post:
+      tags:
+        - Users
+      summary: Register Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: New Admin 1
+                password: password
+                email: newadmin1@mail.com
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/login/:
+    post:
+      tags:
+        - Users
+      summary: Login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: user@mail.com
+                password: password
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/login/admin:
+    post:
+      tags:
+        - Users
+      summary: Login Super Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: superadmin@mail.com
+                password: password
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/me:
+    get:
+      tags:
+        - Users
+      summary: Get Current User
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/log/1:
+    get:
+      tags:
+        - Log
+      summary: Get Car Log by Id
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
