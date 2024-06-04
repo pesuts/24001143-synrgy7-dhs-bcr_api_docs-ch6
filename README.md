@@ -6,20 +6,14 @@ BCR - Car Rental
 ## Author
 
 
-###### Daniel Hasiando Sinaga - FSW1
+**Daniel Hasiando Sinaga - FSW1**
 daniel.sinaga.ds@gmail.com
 
----
-## ERD
-
-![](erd.png)
 
 --- 
+## OpenAPI Documentation
 
-## Swagger (OpenaAPI)
-![](Screenshot%20(2339).png)
-![](Screenshot%20(2340).png)
-![](Screenshot%20(2341).png)
+OpenAPI Endpoint: `/api-docs`
 
 ---
 ## Objective
@@ -53,6 +47,18 @@ HTTP Server tersebut.
 - Terdapat endpoint yang merespon dengan Open
 API document dari REST API yang dibangun
 dalam bentuk JSON.
+
+---
+## ERD
+
+![](erd.png)
+
+--- 
+
+## Swagger (OpenaAPI)
+![](Screenshot%20(2339).png)
+![](Screenshot%20(2340).png)
+![](Screenshot%20(2341).png)
 
 --- 
 ## OpenAPI Documentation
