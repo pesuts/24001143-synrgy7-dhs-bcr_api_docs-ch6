@@ -12,10 +12,10 @@ import { authAdmin, authSuperAdmin, authToken } from "../middleware/authToken";
 const userRouter = express.Router();
 
 userRouter.use("/me", authToken, viewUser);
-userRouter.use("/register", registerMember);
 userRouter.use("/register/admin", authToken, authSuperAdmin, registerAdmin);
-userRouter.use("/login", loginUser);
+userRouter.use("/register", registerMember);
 userRouter.use("/login/admin", loginAdmin);
+userRouter.use("/login", loginUser);
 userRouter.use("/", authToken, authAdmin, getUsers);
 
 export default userRouter;

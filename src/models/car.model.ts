@@ -6,7 +6,7 @@ export class CarsModel extends Model {
   model!: string;
   manufacture!: string;
   plate!: string;
-  image_url!: string;
+  image_url?: string;
   price!: number;
   category!: string;
   created_at?: Date;

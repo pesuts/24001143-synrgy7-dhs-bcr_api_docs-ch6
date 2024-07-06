@@ -7,7 +7,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string('model', 255).notNullable();
     table.string('manufacture', 255).notNullable();
     table.string('plate', 255).notNullable();
-    table.string('image_url', 255).notNullable();
+    // table.string('image_url', 255).notNullable();
+    table.string('image_url', 255).nullable();
     table.integer('price').notNullable();
     table.string('category', 50).notNullable();
     table.dateTime('created_at').notNullable();

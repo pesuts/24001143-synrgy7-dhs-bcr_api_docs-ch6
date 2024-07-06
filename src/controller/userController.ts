@@ -7,6 +7,10 @@ import jwt from "jsonwebtoken";
 const secretKey = "SECRET";
 const saltRounds = 5;
 
+const isEmptyOrWhitespace = (value: string): boolean => {
+  return value.trim().length === 0;
+};
+
 async function hashPassword(password: string) {
   const hashedPassword = bcrypt.hash(password, saltRounds);
 
@@ -54,17 +58,30 @@ export const registerAdmin = async (req: Request, res: Response) => {
 export const registerMember = async (req: Request, res: Response) => {
   try {
     const { name, password, email, role } = req.body;
-    const hash = await hashPassword(password);
+    if (name === undefined || password === undefined || email === undefined) {
+      res.status(401).send({ status: "Error", message: "All field must be filled!" });
+      return;
+    }
 
+    if (isEmptyOrWhitespace(name)|| isEmptyOrWhitespace(password) || isEmptyOrWhitespace(email)) {
+      res.status(401).send({ status: "Error", message: "All field must be filled correctly!" });
+      return;
+    }
+    
+    const hash = await hashPassword(password);
+    const [user] = await userServices.getUserByEmail(email);
+    if (user) {
+      res.status(401).send({ status: "Error", message: "User already exist!" });
+      return;
+    }
     await userServices.createUser({
       name,
       password: hash,
       email,
       role: "user",
     });
-
-    const user = await userServices.getUserByEmail(email);
-    res.status(200).send({ status: "Success", message: "Registration sucess", data: user });
+    const createdUser = await userServices.getUserByEmail(email);
+    res.status(200).send({ status: "Success", message: "Registration sucess", data: createdUser });
   } catch (error) {
     res.status(500).send({
       message: "Internal server error",
@@ -77,16 +94,20 @@ export const loginUser = async (req: Request, res: Response) => {
     const { password, email } = req.body;
 
     const [user] = await userServices.getUserByEmail(email);
+    if (!user) {
+      res.status(401).send({ status: "Error", message: "User not found!" });
+      return;
+    }
 
     const isPasswordMatch = await comparePassword(password, user.password);
     if (!isPasswordMatch) {
-      res.status(200).send({ status: "Error", message: "Wrong password!" });
+      res.status(401).send({ status: "Error", message: "Wrong password!" });
       return;
     }
     const token = jwt.sign(
-      { id: user.id, username: user.email, role: user.role },
+      { id: user.id, username: user.email, role: user.role, name: user.name },
       secretKey,
-      { expiresIn: "10m" }
+      { expiresIn: "1d" }
     );
     res.status(200).send({ status: "Success", message: "Login success", token });
   } catch (error) {
@@ -108,16 +129,21 @@ export const loginAdmin = async (req: Request, res: Response) => {
       });
     }
 
+    if (!user) {
+      res.status(401).send({ status: "Error", message: "Account not found!" });
+      return;
+    }
+
     const isPasswordMatch = await comparePassword(password, user.password);
     if (!isPasswordMatch) {
       return res
-        .status(200)
+        .status(401)
         .send({ status: "Error", message: "Wrong password!" });
     }
     const token = jwt.sign(
       { id: user.id, username: user.email, role: user.role },
       secretKey,
-      { expiresIn: "10m" }
+      { expiresIn: "1d" }
     );
     res
       .status(200)

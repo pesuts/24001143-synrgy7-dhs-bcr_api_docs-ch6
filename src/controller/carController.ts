@@ -5,6 +5,30 @@ import path from "path";
 import CarServices from "../service/carServices";
 import CarLogServices from "../service/carLogService";
 
+interface Car {
+  model: string;
+  manufacture: string;
+  plate: string;
+  price: number;
+  category: string;
+  created_at?: Date;
+  updated_at: Date;
+  available?: boolean;
+  image_url?: string;
+}
+
+// interface updateCar {
+//   model?: string;
+//   manufacture?: string;
+//   plate?: string;
+//   price?: number;
+//   category?: string;
+//   created_at?: Date;
+//   updated_at?: Date;
+//   available?: boolean;
+//   image_url?: string;
+// }
+
 export const getAllCars = async (_: any, res: Response) => {
   try {
     const cars = await CarServices.getAllCars();
@@ -42,29 +66,47 @@ export const getCarById = async (req: Request, res: Response) => {
 
 export const addCar = async (req: any, res: Response) => {
   try {
-    if (!req.file) {
-      return res
-        .status(400)
-        .send({ status: "Error", message: "File must be a picture!" });
-    }
+    // if (!req.file) {
+    //   return res
+    //     .status(400)
+    //     .send({ status: "Error", message: "File must be a picture!" });
+    // }
+    // let newCar = {};
 
-    const url = `/uploads/${req.file!.filename}`;
 
     const { model, manufacture, plate, price, category } = req.body;
     const { id } = req.body.user;
-    console.log(req.body.user);
 
-    const newCar = {
+    const newCar: Car = {
       model,
       manufacture,
       plate,
-      image_url: url,
+      // image_url: url,
       price,
       category,
       created_at: new Date(),
       updated_at: new Date(),
       available: true
     };
+
+    if (req.file) {
+      const url = `/uploads/${req.file!.filename}`;
+      newCar.image_url = url;
+      // newCar = {...newCar, image_url: url};
+    }
+    // console.log(req.body.user);
+
+    // const newCar = {
+    //   model,
+    //   manufacture,
+    //   plate,
+    //   image_url: url,
+    //   price,
+    //   category,
+    //   created_at: new Date(),
+    //   updated_at: new Date(),
+    //   available: true
+    // };
 
     const car = await CarServices.addCar(newCar);
     const carId = car.id as number;
@@ -80,35 +122,41 @@ export const addCar = async (req: any, res: Response) => {
 
 export const updateCarById = async (req: Request, res: Response) => {
   try {
-    if (!req.file) {
-      return res
-        .status(400)
-        .send({ status: "Error", message: "File must be a picture!" });
-    }
+    // if (!req.file) {
+    //   return res
+    //     .status(400)
+    //     .send({ status: "Error", message: "File must be a picture!" });
+    // }
 
     const carId = req.params.id;
     const { id } = req.body.user;
 
-    const oldCars = await CarServices.getCarById(carId);
     const PUBLIC_DIR = path.join(__dirname, "../public");
 
+    const oldCars = await CarServices.getCarById(carId);
     const oldCar = oldCars[0];
-    const oldImageUrl = path.join(PUBLIC_DIR, oldCar.image_url);
+    
+    if (oldCar.image_url) { 
+      const oldImageUrl = path.join(PUBLIC_DIR, oldCar.image_url);
+      fs.unlink(oldImageUrl, () => {});
+    }
 
-    fs.unlink(oldImageUrl, () => {});
-
-    const url = `/uploads/${req.file!.filename}`;
     const { model, manufacture, plate, price, category, created_by } = req.body;
 
-    const updatedCar = {
+    const updatedCar: Car = {
       model,
       manufacture,
       plate,
-      image_url: url,
+      // image_url: url,
       price,
       category,
       updated_at: new Date(),
     };
+
+    if (req.file) { 
+      const url = `/uploads/${req.file!.filename}`;
+      updatedCar.image_url = url;
+    }
 
     await CarServices.updateCarById(carId, updatedCar);
 

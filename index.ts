@@ -4,6 +4,8 @@ import { Model } from "objection";
 import router from "./src/routes";
 import dbConfig from "./src/config";
 import swaggerUi from "swagger-ui-express";
+import cors from "cors";
+import path from "path";
 
 const YAML = require("yamljs");
 
@@ -14,6 +16,12 @@ const knexInstance = knex(dbConfig);
 
 Model.knex(knexInstance);
 
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
+// app.use(express.static('public'))
+// app.set('uploads', path.join(__dirname, 'public/uploads'));
+
+app.use(cors());
 app.use(express.static("src/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
