@@ -17,7 +17,7 @@ tags:
   - name: Users
   - name: Log
 paths:
-  /api/cars/:
+  /api/v1/cars/:
     get:
       tags:
         - Cars
@@ -108,7 +108,7 @@ paths:
                   created_at: '2024-05-18T13:44:38.307Z'
                   updated_at: '2024-05-18T13:44:38.307Z'
                   id: 102
-  /api/cars/1:
+  /api/v1/cars/1:
     put:
       tags:
         - Cars
@@ -236,7 +236,7 @@ paths:
               example:
                 status: Success
                 message: Data sucesfully deleted
-  /api/cars/available:
+  /api/v1/cars/available:
     get:
       tags:
         - Cars
@@ -248,7 +248,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/users/register:
+  /api/v1/users/register:
     post:
       tags:
         - Users
@@ -267,7 +267,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/users/register/admin:
+  /api/v1/users/register/admin:
     post:
       tags:
         - Users
@@ -288,7 +288,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/users/login/:
+  /api/v1/users/login/:
     post:
       tags:
         - Users
@@ -306,7 +306,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/users/login/admin:
+  /api/v1/users/login/admin:
     post:
       tags:
         - Users
@@ -324,7 +324,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/users/me:
+  /api/v1/users/me:
     get:
       tags:
         - Users
@@ -336,7 +336,7 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /api/log/1:
+  /api/v1/log/1:
     get:
       tags:
         - Log

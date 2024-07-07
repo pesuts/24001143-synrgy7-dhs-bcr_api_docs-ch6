@@ -29,7 +29,7 @@ export const getCarLogByCarId = async (req: Request, res: Response) => {
 
     return;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).send({ status: "Error", message: "Internal Server Error" });
   }
 };

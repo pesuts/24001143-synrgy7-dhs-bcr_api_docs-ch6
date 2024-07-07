@@ -3,12 +3,6 @@ import path from "path";
 import { Request, Response, NextFunction } from "express";
 import dotenv from 'dotenv';
 
-// dotenv.config();
-// import { nanoid } from "nanoid";
-
-// const PUBLIC_DIR = path.join(__dirname, "../public");
-// const UPLOAD_DIR = path.join(PUBLIC_DIR, "uploads");
-
 import { v2 as cloudinary } from "cloudinary";
 
 import { resolve } from 'path';
@@ -45,7 +39,6 @@ const imageFilter = function (
     return cb(null, true);
   }
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    // return cb(null, false);
     const error = new Error("Only image files are allowed!");
     error.name = "FileTypeError";
     return cb(error, false);
