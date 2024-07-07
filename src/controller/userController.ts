@@ -57,6 +57,7 @@ export const registerAdmin = async (req: Request, res: Response) => {
 
 export const registerMember = async (req: Request, res: Response) => {
   try {
+    console.log("Received request:", req.body);
     const { name, password, email, role } = req.body;
     if (name === undefined || password === undefined || email === undefined) {
       res.status(401).send({ status: "Error", message: "All field must be filled!" });
@@ -74,17 +75,20 @@ export const registerMember = async (req: Request, res: Response) => {
       res.status(401).send({ status: "Error", message: "User already exist!" });
       return;
     }
+    console.log("a");
     await userServices.createUser({
       name,
       password: hash,
       email,
       role: "user",
     });
+    console.log("b");
     const createdUser = await userServices.getUserByEmail(email);
     res.status(200).send({ status: "Success", message: "Registration sucess", data: createdUser });
   } catch (error) {
+    console.error("Error during user registration:", error);
     res.status(500).send({
-      message: "Internal server error",
+      message: "Internal server error", error,
     });
   }
 };
