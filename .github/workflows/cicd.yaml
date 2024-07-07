@@ -1,9 +1,9 @@
 name: Build and Deploy to Cloud Run
 
 on:
-  push:
+  push: 
     branches:
-      - main
+      - main #a
 
 jobs:
   build:
