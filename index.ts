@@ -23,13 +23,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 // app.use(express.static('public'))
 // app.set('uploads', path.join(__dirname, 'public/uploads'));
 
-// console.log(process.env.DB_CLIENT);
-// console.log(process.env.DB_USER);
-// console.log(process.env.DB_PASSWORD);
-// console.log(process.env.DB_PORT);
-// console.log(process.env.DB_HOST);
-// console.log(process.env.DB_NAME);
-
 app.use(cors());
 app.use(express.static("src/public"));
 app.use(express.json());
