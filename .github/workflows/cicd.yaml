@@ -38,6 +38,7 @@ jobs:
 
     - name: Push Docker image
       run: |
+        gcloud auth configure-docker us-central1-docker.pkg.dev
         docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api-ch7:latest
 
     - name: Deploy to Cloud Run
