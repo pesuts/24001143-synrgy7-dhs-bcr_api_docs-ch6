@@ -35,6 +35,10 @@ jobs:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         install_components: cloud-run
 
+    - name: Create .env.production file
+      run: |
+        echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+
     - name: Build Docker image
       run: |
         docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/24001143-synrgy7-dhs-bcr_api_docs-ch6:${{ github.sha }} .
