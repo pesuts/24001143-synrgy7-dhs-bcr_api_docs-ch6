@@ -14,6 +14,7 @@ const knexConfig = {
     port: parseInt(process.env.DB_PORT!, 10)!,
     host: process.env.DB_HOST!,
     database: process.env.DB_NAME!,
+    ssl: { rejectUnauthorized: false },
   },
 };
 
