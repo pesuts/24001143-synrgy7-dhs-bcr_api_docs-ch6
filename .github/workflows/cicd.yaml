@@ -34,16 +34,16 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build --build-arg ENV_PRODUCTION="$(cat .env.production)" -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api_docs-ch:latest .
+        docker build --build-arg ENV_PRODUCTION="$(cat .env.production)" -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api-ch7:latest .
 
     - name: Push Docker image
       run: |
-        docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api_docs-ch:latest
+        docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api-ch7:latest
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy 24001143-synrgy7-dhs-bcr_api_docs-ch \
-          --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api_docs-ch/api-bcr-challenge8-synrgy:${{ github.sha }} \
+          --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api-ch7:${{ github.sha }} \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
