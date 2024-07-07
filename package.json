@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "start:dev": "NODE_ENV=development nodemon src/index.ts",
-    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon index.ts",
+    "start:prod": "cross-env NODE_ENV=production ts-node index.ts",
     "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "keywords": [],

@@ -3,7 +3,7 @@ import path from "path";
 import { Request, Response, NextFunction } from "express";
 import dotenv from 'dotenv';
 
-dotenv.config();
+// dotenv.config();
 // import { nanoid } from "nanoid";
 
 // const PUBLIC_DIR = path.join(__dirname, "../public");

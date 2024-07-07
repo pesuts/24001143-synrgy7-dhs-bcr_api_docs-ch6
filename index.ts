@@ -3,7 +3,7 @@ import knex from "knex";
 import { Model } from "objection";
 import router from "./src/routes";
 import dbConfig from "./src/config";
-import swaggerUi from "swagger-ui-express";
+// import swaggerUi from "swagger-ui-express";
 import cors from "cors";
 import path from "path";
 
@@ -27,12 +27,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(router);
 
-const swaggerDocument = YAML.load("./src/config/swagger-config.yml");
+// const swaggerDocument = YAML.load("./src/config/swagger-config.yml");
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/", (req: Request, res: Response) => {
-  res.redirect('/api-docs');
+  res.redirect('/api/v1/api-docs');
 });
 
 app.listen(port, () => {
