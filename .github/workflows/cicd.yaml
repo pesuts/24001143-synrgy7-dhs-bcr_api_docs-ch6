@@ -29,7 +29,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build --env-file .env.production -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/24001143-synrgy7-dhs-bcr_api_docs-ch6:${{ github.sha }} .
+        docker build --build-arg ENV_PRODUCTION="$(cat .env.production)" -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend-bcr-challenge8-synrgy7-daniel:${{ github.sha }} .
 
     - name: Push Docker image
       run: |
