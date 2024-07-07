@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start:dev": "cross-env NODE_ENV=development nodemon index.ts",
-    "start:prod": "cross-env NODE_ENV=production ts-node index.ts",
+    "start-prod": "ts-node index.ts",
     "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "keywords": [],
