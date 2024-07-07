@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { resolve } from 'path';
+// import { resolve } from 'path';
 dotenv.config();
 
 const knexConfig = {

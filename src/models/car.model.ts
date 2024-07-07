@@ -11,7 +11,7 @@ export class CarsModel extends Model {
   category!: string;
   created_at?: Date;
   updated_at!: Date;
-  available?: Boolean;
+  available?: boolean;
 
   static get tableName() {
     return "cars";

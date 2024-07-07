@@ -1,8 +1,8 @@
-import express from "express";
+import * as express from "express";
 import userRouter from "./userRoutes";
 import carRouter from "./carRoutes";
 import carLogRouter from "./carLogRoutes";
-import swaggerUi from "swagger-ui-express";
+import * as swaggerUi from "swagger-ui-express";
 
 const router = express.Router();
 const apiRouter = express.Router();

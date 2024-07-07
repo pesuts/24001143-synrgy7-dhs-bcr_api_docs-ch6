@@ -1,11 +1,11 @@
-import multer from "multer";
-import path from "path";
+const multer = require("multer");
+// import path from "path";
 import { Request, Response, NextFunction } from "express";
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 import { v2 as cloudinary } from "cloudinary";
 
-import { resolve } from 'path';
+// import { resolve } from 'path';
 dotenv.config();
 
 // const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';

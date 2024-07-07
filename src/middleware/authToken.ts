@@ -12,7 +12,7 @@ export function authToken(req: Request, res: Response, next: NextFunction) {
       .send({ status: "error", message: "Token not valid" });
   }
 
-  jwt.verify(token!, secretKey, (err, data) => {
+  jwt.verify(token!, secretKey, (err) => {
     if (err)
       return res
         .status(403)

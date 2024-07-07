@@ -1,15 +1,16 @@
-import express, { Express, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import knex from "knex";
 import { Model } from "objection";
 import router from "./src/routes";
 import dbConfig from "./src/config";
 // import swaggerUi from "swagger-ui-express";
-import cors from "cors";
-import path from "path";
-import dotenv from 'dotenv';
+// import * as cors from "cors";
+const cors = require("cors");
+import * as path from "path";
+import * as dotenv from 'dotenv';
 dotenv.config();
 
-const app: Express = express();
+const app = express();
 const port = process.env.PORT || 8080;
 
 const knexInstance = knex(dbConfig);

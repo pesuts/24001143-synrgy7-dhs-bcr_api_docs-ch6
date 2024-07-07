@@ -1,8 +1,11 @@
-import { Request, Response, NextFunction } from "express";
+import {
+  Request, Response,
+  // NextFunction
+} from "express";
 import userServices from "../service/userService";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 
 const secretKey = "SECRET";
 const saltRounds = 5;
@@ -57,7 +60,7 @@ export const registerAdmin = async (req: Request, res: Response) => {
 
 export const registerMember = async (req: Request, res: Response) => {
   try {
-    const { name, password, email, role } = req.body;
+    const { name, password, email } = req.body;
     if (name === undefined || password === undefined || email === undefined) {
       res.status(401).send({ status: "Error", message: "All field must be filled!" });
       return;
@@ -160,7 +163,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
 export const getUsers = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  // next: NextFunction
 ) => {
   try {
     const users = await userServices.getUsers();

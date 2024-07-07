@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import fs from "fs";
-import path from "path";
-import { v2 as cloudinary, UploadApiResponse, UploadApiErrorResponse } from "cloudinary";
+// import fs from "fs";
+// import path from "path";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 
 import CarServices from "../service/carServices";
 import CarLogServices from "../service/carLogService";
