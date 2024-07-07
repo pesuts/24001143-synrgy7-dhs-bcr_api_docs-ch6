@@ -1,20 +1,39 @@
 import multer from "multer";
 import path from "path";
 import { Request, Response, NextFunction } from "express";
-import { nanoid } from "nanoid";
+import dotenv from 'dotenv';
 
-const PUBLIC_DIR = path.join(__dirname, "../public");
-const UPLOAD_DIR = path.join(PUBLIC_DIR, "uploads");
+dotenv.config();
+// import { nanoid } from "nanoid";
 
-const storage = multer.diskStorage({
-  destination: (req: Request, file: Express.Multer.File, cb) => {
-    cb(null, UPLOAD_DIR);
-  },
-  filename: (req: Request, file: Express.Multer.File, cb) => {
-    const id = nanoid(16);
-    cb(null, id + path.extname(file.originalname));
-  },
-});
+// const PUBLIC_DIR = path.join(__dirname, "../public");
+// const UPLOAD_DIR = path.join(PUBLIC_DIR, "uploads");
+
+import { v2 as cloudinary } from "cloudinary";
+
+import { resolve } from 'path';
+// dotenv.config();
+
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
+dotenv.config({ path: resolve(__dirname, `../${envFile}`) });
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+})
+
+const storage = multer.memoryStorage();
+
+// const storage = multer.diskStorage({
+//   destination: (req: Request, file: Express.Multer.File, cb) => {
+//     cb(null, UPLOAD_DIR);
+//   },
+//   filename: (req: Request, file: Express.Multer.File, cb) => {
+//     const id = nanoid(16);
+//     cb(null, id + path.extname(file.originalname));
+//   },
+// });
 
 const imageFilter = function (
   req: Request,
@@ -43,13 +62,10 @@ const handleUploadErrors = (
   next: NextFunction
 ) => {
   if (err instanceof multer.MulterError) {
-    // Kesalahan dari multer
     return res.status(400).json({ message: err.message });
   } else if (err.name === "FileTypeError") {
-    // Kesalahan jenis file
     return res.status(400).json({ message: err.message });
   }
-  // Kesalahan lain
   next(err);
 };
 

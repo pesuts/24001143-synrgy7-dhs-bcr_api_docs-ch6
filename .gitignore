@@ -3,3 +3,6 @@ migration.example.ts
 model.example.ts
 seed.example.ts
 knex_commands.txt
+.env
+.env.development
+.env.production
