@@ -1,13 +1,12 @@
 {
-  "name": "express-ts-knex",
+  "name": "backend-bcr-challenge8-synrgy7-daniel",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npx tsc",
-    "start:dev": "NODE_ENV=development nodemon index.ts",
-    "start:prod": "cross-env NODE_ENV=production ts-node index.ts",
-    "start-dev": "nodemon index.ts",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "build": "tsc",
+    "start:dev": "NODE_ENV=development nodemon src/index.ts",
+    "start:prod": "cross-env NODE_ENV=production node dist/index.js",
+    "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "keywords": [],
   "author": "",
