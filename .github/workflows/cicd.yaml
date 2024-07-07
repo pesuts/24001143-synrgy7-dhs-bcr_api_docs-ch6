@@ -3,7 +3,7 @@ name: Build and Deploy to Cloud Run
 on:
   push:
     branches:
-      - main  # Ubah ke branch yang Anda gunakan
+      - main
 
 jobs:
   build:
@@ -28,13 +28,13 @@ jobs:
         gcloud auth list
         gcloud config list
 
-    - name: Create .env.production file
+    - name: Create .env file from GitHub Secret
       run: |
-        echo "${{ secrets.ENV_PRODUCTION }}" > .env.production
+        echo "${{ secrets.ENV_PRODUCTION }}" > .env
 
     - name: Build Docker image
       run: |
-        docker build --build-arg ENV_PRODUCTION="$(cat .env.production)" -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api-ch7:latest .
+        docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/24001143-synrgy7-dhs-bcr_api-ch7:latest .
 
     - name: Push Docker image
       run: |

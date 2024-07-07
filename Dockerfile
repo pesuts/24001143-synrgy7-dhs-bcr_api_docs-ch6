@@ -1,18 +1,26 @@
+# Menggunakan image Node.js versi 18 berbasis Alpine
 FROM node:18-alpine
 
+# Set working directory ke /app
 WORKDIR /app
 
+# Salin package.json dan package-lock.json ke dalam container
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Salin semua kode ke dalam container
 COPY . .
 
-ARG ENV_PRODUCTION
-RUN echo "$ENV_PRODUCTION" > .env.production
+# Salin file .env ke dalam container
+COPY .env .env
 
-RUN npm run build
-
+# Mengekspos port 8080 untuk aplikasi
 EXPOSE 8080
 
+# Menjalankan build aplikasi (opsional tergantung kebutuhan)
+RUN npm run build
+
+# Menjalankan aplikasi dengan command yang sesuai
 CMD ["npm", "run", "start-prod"]
